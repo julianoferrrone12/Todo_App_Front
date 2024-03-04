@@ -30,7 +30,7 @@ export class FormLoginComponent {
   submit() {
     if (this.form.valid) {
       const formData = this.form.value;
-      if (formData.email && formData.password) { // Verifique se email e password não são nulos ou indefinidos
+      if (formData.email && formData.password) {
         const user = {
           email: formData.email,
           password: formData.password
@@ -45,12 +45,10 @@ export class FormLoginComponent {
           },
           error => {
             console.error('Error logging in:', error);
-            // Trate os erros de login aqui, como exibir uma mensagem de erro para o usuário
           }
         );
       } else {
         console.error('Email or password is null or undefined');
-        // Trate o caso em que email ou password são nulos ou indefinidos, por exemplo, exibindo uma mensagem de erro para o usuário
       }
     }
   }

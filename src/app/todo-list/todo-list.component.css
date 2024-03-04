@@ -1,7 +1,7 @@
 .completed {
   text-decoration: line-through;
-  text-decoration-color: rgba(0, 0, 0, 0.5); /* Cor da sombra */
-  text-decoration-thickness: 0.1em; /* Espessura da sombra */
+  text-decoration-color: rgba(0, 0, 0, 0.5); 
+  text-decoration-thickness: 0.1em; 
 }
 
   .thin{
@@ -9,7 +9,7 @@
   }
 
   .icon-gray {
-    color: #888; /* ou qualquer outra cor cinza que você preferir */
+    color: #888; 
   }
 
   .form-text{

@@ -42,7 +42,7 @@ export class TodoListComponent implements OnInit {
   loadItems() {
     this.todoListService.getItems().subscribe(
       (response) => {
-        if (Array.isArray(response)) { // Verifica se a resposta é um array
+        if (Array.isArray(response)) {
           this.tasks = response;
         } else {
           console.error('Response is not an array:', response);
@@ -62,7 +62,6 @@ export class TodoListComponent implements OnInit {
       }
     };
 
-    // Envia a solicitação PUT para a API
     this.todoListService.updateTask(task.id, payload)
       .subscribe(response => {
         console.log('Item atualizado com sucesso:', response);
@@ -72,7 +71,7 @@ export class TodoListComponent implements OnInit {
   }
 
   openEditModal(task: Task): void {
-    this.taskToEdit = task; // Define a tarefa a ser editada]
+    this.taskToEdit = task;
     this.isEditing = true;
     this.showModal = true;
     this.forms.patchValue({
@@ -99,23 +98,20 @@ export class TodoListComponent implements OnInit {
   
   handleFormSubmit(): void {
     if (this.isEditing) {
-        this.editTask(this.taskToEdit); // Chame o método para editar a tarefa aqui
+        this.editTask(this.taskToEdit);
     } else {
-        this.createTask(); // Chame o método para criar a tarefa aqui
+        this.createTask(); 
     }
   }
 
   createTask(): void {
     const formsData = this.forms.value;
-    console.log('ccccc', formsData)
     const payload = {
       item: {
         name: formsData.name,
         description: formsData.description
       }
     };
-  
-    console.log('ddddd', payload)
   
     this.todoListService.createTask(payload)
       .subscribe(response => {
@@ -128,17 +124,14 @@ export class TodoListComponent implements OnInit {
   
 
   editTask(task: Task | null): void {
-    if (task) { // Verifica se task não é null
+    if (task) {
       const formsData = this.forms.value;
-      console.log('ccccc', formsData)
       const payload = {
         item: {
           name: formsData.name,
           description: formsData.description
         }
       };
-    
-      console.log('ddddd', payload)
     
       this.todoListService.editTask(task.id, payload)
         .subscribe(response => {
@@ -156,13 +149,12 @@ export class TodoListComponent implements OnInit {
     this.userService.logoutUser().subscribe(
       () => {
         console.log('User logged out successfully');
-        localStorage.removeItem('token'); // Remover o token do localStorage
-        this.router.navigateByUrl('/login'); // Redirecionar para a página de login
+        localStorage.removeItem('token'); 
+        this.router.navigateByUrl('/login'); 
         window.location.reload();
       },
       error => {
         console.error('Error logging out:', error);
-        // Trate os erros de logout aqui, se necessário
       }
     );
   }
@@ -174,7 +166,6 @@ export class TodoListComponent implements OnInit {
   deleteTask(taskId: number): void {
     this.todoListService.deleteTask(taskId)
       .subscribe(() => {
-        // Removendo a tarefa excluída do array de tarefas
         this.tasks = this.tasks.filter(task => task.id !== taskId);
       });
   }

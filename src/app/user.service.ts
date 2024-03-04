@@ -23,7 +23,6 @@ export class UserService {
   }
 
   loggedIn(): boolean {
-    // Verifica se há um token no localStorage
     return !!localStorage.getItem('token');
   }
 }
