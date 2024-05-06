@@ -2,21 +2,23 @@
   <div class="d-flex justify-content-end">
     <button type="button" class="btn btn-danger ms-2" data-bs-toggle="modal" data-bs-target="#exitConfirmationModal">
       <i class="fa-solid fa-arrow-right-from-bracket"></i>
-      Sair
+      Exit
     </button>
-  </div>  
-  <div (hidden.bs.modal)="closeExitModal()" class="modal fade" id="exitConfirmationModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+  </div>
+  <div (hidden.bs.modal)="closeExitModal()" class="modal fade" id="exitConfirmationModal" data-bs-backdrop="static"
+    data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5">Você tem certeza?</h1>
+          <h1 class="modal-title fs-5">Are you sure?</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          Você tem certeza que deseja sair? Ao confirmar esta ação você será deslogado e será redirecionado para a página de login.
+          Are you sure you want to log out? By confirming this action you will be logged out and redirected to the login
+          page.
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="confirmLogout.bind(this)">Sair</button>
+          <button type="button" class="btn btn-primary" (click)="confirmLogout()">Exit</button>
         </div>
       </div>
     </div>
@@ -24,28 +26,33 @@
 </div>
 
 <div class="container mt-5">
-  <h1 class="mb-4 thin">Lista de Tarefas</h1>
+  <h1 class="mb-4 thin">List of Notes</h1>
 
   <div class="d-flex justify-content-end mb-3">
-    <button (click)="openCreateModal()" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal">
-      <i class="fas fa-plus"></i> Adicionar tarefa
+    <button (click)="openCreateModal()" type="button" class="btn btn-primary" data-bs-toggle="modal"
+      data-bs-target="#taskModal">
+      <i class="fas fa-plus"></i> Create a note
     </button>
   </div>
 
   <ul class="list-group">
     <li *ngFor="let task of tasks" class="list-group-item">
       <div class="d-flex align-items-center">
-        <input class="form-check-input me-3" type="checkbox" [checked]="task.completed" (change)="updateTaskCompletion(task)">
-        <div data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseExample-' + task.id" aria-expanded="false" aria-controls="collapseExample" class="flex-grow-1" style="cursor: pointer;" title="Clique para visualizar a descrição da tarefa">
+        <input class="form-check-input me-3" type="checkbox" [checked]="task.completed"
+          (change)="updateTaskCompletion(task)">
+        <div data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseExample-' + task.id" aria-expanded="false"
+          aria-controls="collapseExample" class="flex-grow-1" style="cursor: pointer;"
+          title="Click to view the note description">
           <span [class.completed]="task.completed">{{ task.name }}</span>
-        </div>            
-        <a (click)="openEditModal(task)" data-bs-toggle="modal" data-bs-target="#taskModal" style="cursor: pointer;" class="me-2">
+        </div>
+        <a (click)="openEditModal(task)" data-bs-toggle="modal" data-bs-target="#taskModal" style="cursor: pointer;"
+          class="me-2">
           <i class="fa-solid fa-pen icon-gray"></i>
         </a>
         <a (click)="deleteTask(task.id)" style="cursor: pointer;">
           <i class="fa-solid fa-trash icon-gray"></i>
         </a>
-        
+
       </div>
       <div class="collapse" [id]="'collapseExample-' + task.id">
         <div class="card card-body mt-2">{{ task.description }}</div>
@@ -54,17 +61,21 @@
   </ul>
 </div>
 
-<app-modal #taskModal [modalTitle]="isEditing ? 'Editar Tarefa' : 'Adicionar Tarefa'" [buttonClickHandler]="handleFormSubmit.bind(this)" (modalClosed)="clearFormFields()" [buttonText]="isEditing ? 'Salvar' : 'Adicionar'">
+<app-modal #taskModal [modalTitle]="isEditing ? 'Edit Note' : 'Create a note'"
+  [buttonClickHandler]="handleFormSubmit.bind(this)" (modalClosed)="clearFormFields()"
+  [buttonText]="isEditing ? 'Save' : 'Create'">
   <form [formGroup]="forms">
     <div class="form-group">
-      <label for="nomeTarefa">Nome da Tarefa</label>
-      <input type="text" formControlName="name" class="form-control" id="nomeTarefa" placeholder="Digite o nome da tarefa">
-      <small class="form-text text-muted">Escolha um nome que te remeta facilmente a tarefa</small>
+      <label for="nomeTarefa">Note Name</label>
+      <input type="text" formControlName="name" class="form-control" id="nomeTarefa"
+        placeholder="Enter the name of the note">
+      <small class="form-text text-muted">Choose a name that easily brings the note to mind</small>
     </div>
     <div class="form-group">
-      <label for="descTarefa">Descrição da Tarefa</label>
-      <textarea type="text" formControlName="description" class="form-control" id="descTarefa" rows="5" style="resize: none;" placeholder="Digite uma descrição para a tarefa"></textarea>
-      <small class="form-text text-muted">Após a tarefa ser criada clique para ver a descrição</small>
+      <label for="descTarefa">Note Description</label>
+      <textarea type="text" formControlName="description" class="form-control" id="descTarefa" rows="5"
+        style="resize: none;" placeholder="Enter a description for the note"></textarea>
+      <small class="form-text text-muted">Once the note has been created, click to see the description</small>
     </div>
   </form>
 </app-modal>
